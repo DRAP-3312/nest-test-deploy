@@ -87,7 +87,6 @@ networks:
   tasks-internal:
     driver: overlay
     attachable: false
-    encrypted: true
 
 volumes:
   tasks_mongodb_data:
