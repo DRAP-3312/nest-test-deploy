@@ -19,8 +19,12 @@ lerna-debug.log*
 /coverage
 /.nyc_output
 
-# docs
+#docs
 /docs
+
+# Cache and temporary files
+.eslintcache
+*.tsbuildinfo
 
 # IDEs and editors
 /.idea
