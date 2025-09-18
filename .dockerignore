@@ -1,0 +1,54 @@
+# Node
+node_modules
+npm-debug.log
+dist
+coverage
+.nyc_output
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+test/
+*.spec.ts
+*.test.ts
+
+# Build tools (keep tsconfig files and nest-cli.json for build)
+.eslintrc.js
+.prettierrc
+jest.config.js
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

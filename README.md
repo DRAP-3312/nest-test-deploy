@@ -1,98 +1,216 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 📋 Task Manager API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+> Proyecto de prueba para aprender deployment de aplicaciones backend en producción
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📖 Descripción
 
-## Description
+**Task Manager API** es una aplicación backend desarrollada con **NestJS** y **MongoDB** que implementa un sistema completo de gestión de tareas. Este proyecto fue creado específicamente como ejercicio de aprendizaje para practicar el deployment de APIs en producción utilizando **Docker** y **Docker Compose**.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### ✨ Funcionalidades
 
-## Project setup
+- **🏷️ Gestión de Categorías**: CRUD completo para categorías de tareas
+- **📝 Gestión de Tareas**: CRUD completo para tareas con relaciones a categorías
+- **🔍 Validación de datos**: Validación robusta con class-validator
+- **📚 Documentación automática**: Swagger UI integrado
+- **🏥 Health checks**: Endpoint de monitoreo de salud
+- **🐳 Containerización**: Completamente dockerizado para deployment
 
-```bash
-$ pnpm install
-```
+### 🛠️ Stack Tecnológico
 
-## Compile and run the project
+- **Backend**: NestJS (Node.js + TypeScript)
+- **Base de datos**: MongoDB con Mongoose
+- **Validación**: class-validator + class-transformer
+- **Documentación**: Swagger/OpenAPI
+- **Containerización**: Docker + Docker Compose
+- **Gestión de paquetes**: pnpm
 
-```bash
-# development
-$ pnpm run start
+## 🚀 Inicio Rápido
 
-# watch mode
-$ pnpm run start:dev
+### Prerrequisitos
 
-# production mode
-$ pnpm run start:prod
-```
+- **Docker** y **Docker Compose** instalados
+- Puerto **3000** y **27017** disponibles
 
-## Run tests
+### 🐳 Deployment con Docker (Recomendado)
 
 ```bash
-# unit tests
-$ pnpm run test
+# 1. Clonar el repositorio
+git clone <repository-url>
+cd nest-test-deploy
 
-# e2e tests
-$ pnpm run test:e2e
+# 2. Levantar toda la infraestructura
+docker-compose up -d
 
-# test coverage
-$ pnpm run test:cov
+# 3. Verificar que los servicios estén funcionando
+docker-compose ps
 ```
 
-## Deployment
+¡Listo! La aplicación estará disponible en:
+- **API**: http://localhost:3000
+- **Swagger Docs**: http://localhost:3000/api
+- **Health Check**: http://localhost:3000/health
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### 📊 Datos de Ejemplo
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+La aplicación se inicializa automáticamente con datos de ejemplo:
+- **4 categorías**: Work, Personal, Learning, Health
+- **5 tareas** con diferentes estados y prioridades
+
+### 🛠️ Comandos de Docker
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+# Ver logs en tiempo real
+docker-compose logs -f
+
+# Ver logs de un servicio específico
+docker-compose logs -f api
+docker-compose logs -f mongodb
+
+# Parar servicios
+docker-compose down
+
+# Parar y eliminar datos (⚠️ elimina la base de datos)
+docker-compose down -v
+
+# Reconstruir y levantar (después de cambios en código)
+docker-compose up --build -d
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 💻 Desarrollo Local (Opcional)
 
-## Resources
+Si prefieres ejecutar sin Docker:
 
-Check out a few resources that may come in handy when working with NestJS:
+### Setup del proyecto
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+# Instalar dependencias
+pnpm install
 
-## Support
+# Configurar variables de entorno
+cp .env.example .env
+# Editar .env con tu configuración de MongoDB
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Ejecutar la aplicación
 
-## Stay in touch
+```bash
+# Modo desarrollo (con watch)
+pnpm run start:dev
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Modo producción
+pnpm run start:prod
 
-## License
+# Build del proyecto
+pnpm run build
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Ejecutar tests
+
+```bash
+# Tests unitarios
+pnpm run test
+
+# Tests e2e
+pnpm run test:e2e
+
+# Cobertura de tests
+pnpm run test:cov
+```
+
+## 📡 API Endpoints
+
+### Health Check
+- `GET /health` - Estado de la aplicación
+
+### Categorías
+- `GET /categories` - Listar todas las categorías
+- `GET /categories/:id` - Obtener categoría por ID
+- `POST /categories` - Crear nueva categoría
+- `PATCH /categories/:id` - Actualizar categoría
+- `DELETE /categories/:id` - Eliminar categoría
+
+### Tareas
+- `GET /tasks` - Listar todas las tareas (con información de categorías)
+- `GET /tasks/:id` - Obtener tarea por ID
+- `POST /tasks` - Crear nueva tarea
+- `PATCH /tasks/:id` - Actualizar tarea
+- `DELETE /tasks/:id` - Eliminar tarea
+
+### Documentación
+- `GET /api` - Swagger UI con documentación completa
+
+## 🏗️ Arquitectura
+
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Docker        │    │   Docker         │    │   Volume        │
+│   Container     │    │   Container      │    │   (Persistent)  │
+│                 │    │                  │    │                 │
+│   NestJS API    │◄──►│   MongoDB        │◄──►│   Database      │
+│   Port: 3000    │    │   Port: 27017    │    │   Storage       │
+│                 │    │                  │    │                 │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+          ▲                        ▲
+          │                        │
+          └────────────────────────┘
+               Internal Network
+             (172.20.0.0/16)
+```
+
+## 🔧 Configuración
+
+### Variables de Entorno
+
+El proyecto utiliza las siguientes variables de entorno:
+
+```env
+# Database
+MONGODB_URI=mongodb://localhost:27017/taskmanager
+MONGODB_NAME=taskmanager
+
+# Application
+PORT=3000
+NODE_ENV=development
+
+# Security
+JWT_SECRET=your-secret-key
+```
+
+### Estructura del Proyecto
+
+```
+nest-test-deploy/
+├── src/
+│   ├── categories/          # Módulo de categorías
+│   ├── tasks/              # Módulo de tareas
+│   ├── common/             # Enums y utilidades compartidas
+│   ├── app.module.ts       # Módulo principal
+│   └── main.ts            # Punto de entrada
+├── docker/
+│   └── mongodb/           # Scripts de inicialización de DB
+├── Dockerfile             # Imagen de la API
+├── docker-compose.yml     # Orquestación de servicios
+└── README.md             # Este archivo
+```
+
+## 🚀 Próximos Pasos
+
+Este proyecto es una base sólida para aprender sobre:
+
+1. **CI/CD**: Integrar con GitHub Actions o GitLab CI
+2. **Cloud Deployment**: Deploy en AWS, Google Cloud, o DigitalOcean
+3. **Monitoring**: Agregar logging avanzado y métricas
+4. **Security**: Implementar autenticación JWT y rate limiting
+5. **Performance**: Agregar caching con Redis
+6. **Testing**: Ampliar cobertura de tests
+
+## 📚 Recursos Útiles
+
+- [NestJS Documentation](https://docs.nestjs.com)
+- [Docker Documentation](https://docs.docker.com)
+- [MongoDB Documentation](https://docs.mongodb.com)
+- [Mongoose Documentation](https://mongoosejs.com)
+
+## 📄 Licencia
+
+Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](LICENSE).
