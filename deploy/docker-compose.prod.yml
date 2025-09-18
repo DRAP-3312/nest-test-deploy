@@ -1,0 +1,98 @@
+version: "3.8"
+
+services:
+  tasks-api:
+    image: nest-test-deploy-api:latest
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MONGODB_URI: mongodb://tasks-mongodb:27017/taskmanager
+      MONGODB_NAME: taskmanager
+      CORS_ORIGIN: "*"
+    networks:
+      - caddy_attachable
+      - tasks-internal
+    deploy:
+      labels:
+        caddy: tasks.saguarodrap.dev
+        caddy.reverse_proxy: "{{upstreams 3000}}"
+        caddy.header: "Access-Control-Allow-Origin *"
+        caddy.header.Access-Control-Allow-Methods: "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+        caddy.header.Access-Control-Allow-Headers: "Content-Type, Authorization"
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        max_attempts: 3
+        window: 60s
+      resources:
+        reservations:
+          cpus: "0.2"
+          memory: 256M
+        limits:
+          cpus: "1.0"
+          memory: 512M
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        order: start-first
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  tasks-mongodb:
+    image: mongo:7.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_password
+      MONGO_INITDB_DATABASE: taskmanager
+    volumes:
+      - tasks_mongodb_data:/data/db
+      - ./docker/mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - tasks-internal
+    secrets:
+      - mongo_password
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        max_attempts: 3
+        window: 60s
+      resources:
+        reservations:
+          cpus: "0.2"
+          memory: 256M
+        limits:
+          cpus: "0.5"
+          memory: 512M
+      placement:
+        constraints:
+          - node.role == manager
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  caddy_attachable:
+    external: true
+  tasks-internal:
+    driver: overlay
+    attachable: false
+    encrypted: true
+
+volumes:
+  tasks_mongodb_data:
+    driver: local
+
+secrets:
+  mongo_password:
+    external: true

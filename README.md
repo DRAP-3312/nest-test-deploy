@@ -186,10 +186,13 @@ nest-test-deploy/
 │   ├── common/             # Enums y utilidades compartidas
 │   ├── app.module.ts       # Módulo principal
 │   └── main.ts            # Punto de entrada
+├── deploy/
+│   ├── docker-compose.prod.yml  # Configuración de producción
+│   └── init-mongo.js           # Scripts de BD para producción
 ├── docker/
-│   └── mongodb/           # Scripts de inicialización de DB
+│   └── mongodb/           # Scripts de inicialización de DB (desarrollo)
 ├── Dockerfile             # Imagen de la API
-├── docker-compose.yml     # Orquestación de servicios
+├── docker-compose.yml     # Desarrollo local
 └── README.md             # Este archivo
 ```
 
