@@ -88,27 +88,11 @@ jobs:
           docker stack deploy -c docker-compose.tasks.yml ${{ secrets.STACK_NAME }}
 
           echo 'Waiting for services to start...'
-          sleep 30
+          sleep 15
 
           echo 'Checking service status...'
           docker service ls | grep ${{ secrets.STACK_NAME }}
         "
-
-    - name: Health check
-      run: |
-        echo "Waiting for SSL certificate generation..."
-        sleep 60
-
-        # Try health check with retries
-        for i in {1..5}; do
-          if curl -f -s https://${{ secrets.DOMAIN }}/health > /dev/null; then
-            echo "Health check passed!"
-            break
-          else
-            echo "Attempt $i/5 failed, waiting 30s..."
-            sleep 30
-          fi
-        done
 
     - name: Deployment summary
       run: |

@@ -52,7 +52,7 @@ services:
       MONGO_INITDB_DATABASE: taskmanager
     volumes:
       - tasks_mongodb_data:/data/db
-      - ./docker/mongodb/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     networks:
       - tasks-internal
     secrets:
