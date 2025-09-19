@@ -11,7 +11,7 @@ import { AppController } from './app.controller';
       isGlobal: true,
     }),
     MongooseModule.forRoot(
-      process.env.MONGODB_URI || 'mongodb://localhost:27017/taskmanager',
+      process.env.MONGO_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/taskmanager',
     ),
     CategoriesModule,
     TasksModule,

@@ -63,8 +63,11 @@ jobs:
         # Transfer image
         scp -i ~/.ssh/deploy_key /tmp/tasks-api-image.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/
 
+        # Process configuration files with secrets
+        sed "s|MONGO_URL_PLACEHOLDER|${{ secrets.MONGO_URL }}|g" deploy/docker-compose.prod.yml > /tmp/docker-compose.tasks.yml
+
         # Transfer configuration files
-        scp -i ~/.ssh/deploy_key deploy/docker-compose.prod.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/docker-compose.tasks.yml
+        scp -i ~/.ssh/deploy_key /tmp/docker-compose.tasks.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/docker-compose.tasks.yml
         scp -i ~/.ssh/deploy_key deploy/init-mongo.js ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/
 
     - name: Deploy to server
