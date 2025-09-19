@@ -92,6 +92,10 @@ jobs:
 
           echo 'Checking service status...'
           docker service ls | grep ${{ secrets.STACK_NAME }}
+
+          echo 'Cleaning up old images...'
+          docker image prune -f
+          docker images | grep '${{ secrets.IMAGE_NAME }}' | grep -v latest | awk '{print \$3}' | head -5 | xargs -r docker rmi || true
         "
 
     - name: Deployment summary
