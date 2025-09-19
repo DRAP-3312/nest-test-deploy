@@ -10,7 +10,7 @@ services:
       MONGODB_NAME: taskmanager
       CORS_ORIGIN: "*"
     networks:
-      - caddy_attachable
+      - caddy
       - tasks-internal
     deploy:
       labels:
@@ -79,7 +79,7 @@ services:
       start_period: 60s
 
 networks:
-  caddy_attachable:
+  caddy:
     external: true
   tasks-internal:
     driver: overlay
